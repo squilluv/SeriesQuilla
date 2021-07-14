@@ -1,0 +1,59 @@
+<MainWindow>:
+    orientation: 'vertical'
+    MDToolbar:
+        title: "MDToolbar"
+    MDBottomNavigation:
+        id: bottom_nav
+        MDBottomNavigationItem:
+            name: "screen search"
+            text: "Поиск"
+            icon: "magnify"
+            MDBoxLayout:
+                orientation: 'vertical'
+                MDBoxLayout:
+                    MDTextField:
+                        id: search_series
+                        hint_text: "Введите название"
+                    MDRectangleFlatButton:
+                        text: "Искать"
+                        on_release:
+                            app.search_series(root.ids.search_series.text )
+                ScrollView:
+                    size_hint: 1, 7
+                    MDList:
+                        id: search_results
+                Widget:
+
+
+
+        MDBottomNavigationItem:
+            name: "screen add"
+            text: "Добавить"
+            icon: "plus"
+            MDBoxLayout:
+                orientation: "vertical"
+                MDTextField:
+                    id: add_group
+                    hint_text: "Введите группу"
+                MDTextField:
+                    id: add_series
+                    hint_text: "Введите название"
+                Widget:
+                MDFloatingActionButton:
+                    icon: "plus"
+                    pos_hint: {"right": .95}
+                    on_release:
+                        app.add_series(root.ids.add_group.text, root.ids.add_series.text)
+
+
+
+
+
+
+
+
+<SearchResultItem>:
+    IconLeftWidget:
+        icon: "phone"
+    RightButton:
+        icon: "minus"
