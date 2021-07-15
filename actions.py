@@ -17,9 +17,21 @@ def show_res_by_search_text(name_table, search_text: str):
         return [tuple([group.name, ', '.join([series.name for series in group.series]), group.id]) for group in
                 Groups.find_by_group_name(search_text)]
 
+
 def show_res_all():
     return [tuple([group.name, ', '.join([series.name for series in group.series]), group.id]) for group in
             Groups.show_all()]
 
+
 def del_by_id(group_id):
     return Groups.del_by_id(group_id)
+
+
+def show_groups():
+    return [tuple([group.name, group.id]) for group in
+            Groups.show_groups()]
+
+
+def show_series_by_id(group_id):
+    return [tuple([series.name, series.id]) for series in
+            Series.show_series_by_id(group_id)]

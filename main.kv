@@ -1,61 +1,46 @@
 <MainWindow>:
-    orientation: 'vertical'
-    MDToolbar:
-        title: "MDToolbar"
-        MDIconButton:
-            icon: "expand-all-outline"
-            on_release: app.show_all()
-    MDBottomNavigation:
-        id: bottom_nav
-        MDBottomNavigationItem:
-            name: "screen search"
-            text: "Поиск"
-            icon: "magnify"
-            MDBoxLayout:
-                orientation: 'vertical'
+    MDBoxLayout:
+        orientation: 'vertical'
+        md_bg_color: app.theme_cls.bg_normal
+        MDToolbar:
+            id: toolbar
+            title: "SeriesQuilla"
+            left_action_items: [["menu", lambda x: print('hah')]]
+        MDBottomNavigation:
+            id: bottom_nav
+            MDBottomNavigationItem:
+                name: "screen search"
+                text: "Поиск"
+                icon: "magnify"
                 MDBoxLayout:
-                    MDTextField:
-                        id: search_groups
-                        hint_text: "Введите название"
-                    MDRectangleFlatButton:
-                        text: "Искать"
-                        on_release:
-                            app.search("groups", root.ids.search_groups.text )
+                    orientation: 'vertical'
+
+                    ScrollView:
+                        size_hint: 1, 7
+                        MDList:
+                            id: results
+                    Widget:
+
+
+
+            MDBottomNavigationItem:
+                name: "screen add"
+                text: "Добавить"
+                icon: "plus"
                 MDBoxLayout:
+                    orientation: "vertical"
                     MDTextField:
-                        id: search_series
+                        id: add_group
+                        hint_text: "Введите группу"
+                    MDTextField:
+                        id: add_series
                         hint_text: "Введите название"
-                    MDRectangleFlatButton:
-                        text: "Искать"
+                    Widget:
+                    MDFloatingActionButton:
+                        icon: "plus"
+                        pos_hint: {"right": .95}
                         on_release:
-                            app.search('series', root.ids.search_series.text )
-
-                ScrollView:
-                    size_hint: 1, 7
-                    MDList:
-                        id: search_results
-                Widget:
-
-
-
-        MDBottomNavigationItem:
-            name: "screen add"
-            text: "Добавить"
-            icon: "plus"
-            MDBoxLayout:
-                orientation: "vertical"
-                MDTextField:
-                    id: add_group
-                    hint_text: "Введите группу"
-                MDTextField:
-                    id: add_series
-                    hint_text: "Введите название"
-                Widget:
-                MDFloatingActionButton:
-                    icon: "plus"
-                    pos_hint: {"right": .95}
-                    on_release:
-                        app.add_series(root.ids.add_group.text, root.ids.add_series.text)
+                            app.add_series(root.ids.add_group.text, root.ids.add_series.text)
 
 
 
@@ -64,9 +49,21 @@
 
 
 
-<SearchResultItem>:
+<GroupsItems>:
+    on_release:
+        root.show_series_by_group()
     IconLeftWidget:
-        icon: "logo.png"
+        icon: "folder"
+
+    RightButton:
+        icon: "minus"
+        on_release:
+            root.del_series()
+
+<SeriesItems>:
+    IconLeftWidget:
+        icon: "folder"
+
     RightButton:
         icon: "minus"
         on_release:

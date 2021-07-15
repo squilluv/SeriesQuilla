@@ -36,6 +36,11 @@ class Groups(Base):
     @classmethod
     def show_all(cls):
         return session.query(cls).join(Series).all()
+
+    @classmethod
+    def show_groups(cls):
+        return session.query(cls).join(Series).all()
+
     @classmethod
     def del_by_id(cls, group_id):
         group = session.query(cls).filter_by(id=group_id).first()
@@ -63,6 +68,10 @@ class Series(Base):
         session.add(series)
         session.commit()
         return series
+
+    @classmethod
+    def show_series_by_id(cls, group_id):
+        return session.query(cls).filter_by(id=group_id).all()
 
 
 Base.metadata.create_all(engine)
