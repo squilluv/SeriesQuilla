@@ -29,6 +29,22 @@ class Groups(Base):
     def find_by_group_name(cls, group_name):
         return session.query(cls).filter(cls.name.ilike(f'%{group_name}%'))
 
+    @classmethod
+    def find_by_series_name(cls, series_name):
+        return session.query(cls).join(Series).filter(Series.name.ilike(f'%{series_name}%'))
+
+    @classmethod
+    def show_all(cls):
+        return session.query(cls).join(Series).all()
+    @classmethod
+    def del_by_id(cls, group_id):
+        group = session.query(cls).filter_by(id=group_id).first()
+        if group:
+            session.delete(group)
+            session.commit()
+            return True
+        return False
+
 
 class Series(Base):
     __tablename__ = 'series'

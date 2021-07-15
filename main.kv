@@ -2,6 +2,9 @@
     orientation: 'vertical'
     MDToolbar:
         title: "MDToolbar"
+        MDIconButton:
+            icon: "expand-all-outline"
+            on_release: app.show_all()
     MDBottomNavigation:
         id: bottom_nav
         MDBottomNavigationItem:
@@ -12,12 +15,21 @@
                 orientation: 'vertical'
                 MDBoxLayout:
                     MDTextField:
+                        id: search_groups
+                        hint_text: "Введите название"
+                    MDRectangleFlatButton:
+                        text: "Искать"
+                        on_release:
+                            app.search("groups", root.ids.search_groups.text )
+                MDBoxLayout:
+                    MDTextField:
                         id: search_series
                         hint_text: "Введите название"
                     MDRectangleFlatButton:
                         text: "Искать"
                         on_release:
-                            app.search_series(root.ids.search_series.text )
+                            app.search('series', root.ids.search_series.text )
+
                 ScrollView:
                     size_hint: 1, 7
                     MDList:
@@ -54,6 +66,8 @@
 
 <SearchResultItem>:
     IconLeftWidget:
-        icon: "phone"
+        icon: "logo.png"
     RightButton:
         icon: "minus"
+        on_release:
+            root.del_series()
