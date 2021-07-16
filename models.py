@@ -39,10 +39,10 @@ class Groups(Base):
 
     @classmethod
     def show_groups(cls):
-        return session.query(cls).join(Series).all()
+        return session.query(cls).all()
 
     @classmethod
-    def del_by_id(cls, group_id):
+    def del_group_by_id(cls, group_id):
         group = session.query(cls).filter_by(id=group_id).first()
         if group:
             session.delete(group)
@@ -63,15 +63,24 @@ class Series(Base):
         return self.name
 
     @classmethod
-    def add(cls, series_name, group):
-        series = cls(name=series_name, groups=group)
+    def show_series_by_id(cls, group_id):
+        return session.query(cls).filter_by(group_id=group_id).all()
+
+    @classmethod
+    def add_series(cls, series_name, group_name):
+        group = session.query(Groups).filter(Groups.name.like(f'{group_name}'))
+        series = cls(name=series_name, groups=group[0])
         session.add(series)
         session.commit()
         return series
 
     @classmethod
-    def show_series_by_id(cls, group_id):
-        return session.query(cls).filter_by(id=group_id).all()
-
+    def del_series_by_id(cls, series_id):
+        series = session.query(cls).filter_by(id=series_id).first()
+        if series:
+            session.delete(series)
+            session.commit()
+            return True
+        return False
 
 Base.metadata.create_all(engine)

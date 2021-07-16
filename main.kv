@@ -5,46 +5,16 @@
         MDToolbar:
             id: toolbar
             title: "SeriesQuilla"
-            left_action_items: [["menu", lambda x: print('hah')]]
-        MDBottomNavigation:
-            id: bottom_nav
-            MDBottomNavigationItem:
-                name: "screen search"
-                text: "Поиск"
-                icon: "magnify"
-                MDBoxLayout:
-                    orientation: 'vertical'
+            left_action_items: [["menu", lambda x: app.callback(x)]]
 
-                    ScrollView:
-                        size_hint: 1, 7
-                        MDList:
-                            id: results
-                    Widget:
+        MDBoxLayout:
+            orientation: 'vertical'
 
-
-
-            MDBottomNavigationItem:
-                name: "screen add"
-                text: "Добавить"
-                icon: "plus"
-                MDBoxLayout:
-                    orientation: "vertical"
-                    MDTextField:
-                        id: add_group
-                        hint_text: "Введите группу"
-                    MDTextField:
-                        id: add_series
-                        hint_text: "Введите название"
-                    Widget:
-                    MDFloatingActionButton:
-                        icon: "plus"
-                        pos_hint: {"right": .95}
-                        on_release:
-                            app.add_series(root.ids.add_group.text, root.ids.add_series.text)
-
-
-
-
+            ScrollView:
+                size_hint: 1, 7
+                MDList:
+                    id: results
+            Widget:
 
 
 
@@ -58,13 +28,50 @@
     RightButton:
         icon: "minus"
         on_release:
-            root.del_series()
+            root.del_group()
+
+
 
 <SeriesItems>:
     IconLeftWidget:
-        icon: "folder"
+        icon: "file"
 
     RightButton:
         icon: "minus"
         on_release:
             root.del_series()
+
+
+<AddGroup>:
+    size_hint_y: None
+    height: self.minimum_height
+    orientation: "vertical"
+    MDTextField:
+        id: group_name
+        hint_text: "Введите название группу"
+    Widget:
+    MDFloatingActionButton:
+        icon: "plus"
+        pos_hint: {"center_x": .5, "center_y": .5}
+        on_release:
+            root.add_group(root.ids.group_name.text)
+
+
+<AddSeries>:
+    size_hint_y: None
+    height: self.minimum_height
+    orientation: "vertical"
+    MDDropDownItem:
+        id: group_name
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        text: 'Выберите группу'
+        on_release: root.callback_group()
+    MDTextField:
+        id: add_series
+        hint_text: "Введите название сериала"
+    Widget:
+    MDFloatingActionButton:
+        icon: "plus"
+        pos_hint: {"center_x": .5, "center_y": .5}
+        on_release:
+            root.add_series(root.ids.add_series.text)

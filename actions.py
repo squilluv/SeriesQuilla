@@ -1,10 +1,16 @@
 from models import Groups, Series
 
 
-def group_saver(group_name: str, series_name: str) -> bool:
-    if group_name and series_name:
+def group_saver(group_name: str) -> bool:
+    if group_name:
         group = Groups.add(group_name)
-        series = Series.add(series_name, group)
+        return True
+    return False
+
+
+def series_saver(series_name: str,group_name: str) -> bool:
+    if group_name and series_name:
+        series = Series.add_series(series_name, group_name)
         return True
     return False
 
@@ -23,8 +29,12 @@ def show_res_all():
             Groups.show_all()]
 
 
-def del_by_id(group_id):
-    return Groups.del_by_id(group_id)
+def del_group_by_id(group_id):
+    return Groups.del_group_by_id(group_id)
+
+
+def del_series_by_id(series_id):
+    return Series.del_series_by_id(series_id)
 
 
 def show_groups():
