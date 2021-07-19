@@ -6,7 +6,7 @@
             id: toolbar
             title: "SeriesQuilla"
             left_action_items: [["menu", lambda x: app.callback(x)]]
-
+            right_action_items: [["arrow-collapse-down", lambda x: app.update_db_series(x)]]
         MDBoxLayout:
             orientation: 'vertical'
 

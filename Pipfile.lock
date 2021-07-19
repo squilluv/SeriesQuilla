@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a35c41659c1449ae7fafac1935778f8019904c6cef7ceafa82ce59aa59e4edc2"
+            "sha256": "178c36522465e7dc98b6e8db2bf0130d9967c35bb50fc45c1b2e35881ef91948"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -34,11 +34,11 @@
         },
         "charset-normalizer": {
             "hashes": [
-                "sha256:3c502a35807c9df35697b0f44b1d65008f83071ff29c69677c7c22573bc5a45a",
-                "sha256:951567c2f7433a70ab63f1be67e5ee05d3925d9423306ecb71a3b272757bcc95"
+                "sha256:88fce3fa5b1a84fdcb3f603d889f723d1dd89b26059d0123ca435570e848d5e1",
+                "sha256:c46c3ace2d744cfbdebceaa3c19ae691f53ae621b39fd7570f59d14fb7f2fd12"
             ],
             "markers": "python_version >= '3'",
-            "version": "==2.0.2"
+            "version": "==2.0.3"
         },
         "docutils": {
             "hashes": [
@@ -313,6 +313,14 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
             "version": "==1.26.6"
+        },
+        "yadisk": {
+            "hashes": [
+                "sha256:88df1f09c767c36cefa5daa0c54d0c8297d29e889d6f4514046b5a18966b9d94",
+                "sha256:c4abdcd56b6640179ed41f6662aeab9756755fe0d0709ce82905167f6c89d0e6"
+            ],
+            "index": "pypi",
+            "version": "==1.2.14"
         }
     },
     "develop": {}

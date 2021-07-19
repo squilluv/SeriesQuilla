@@ -10,6 +10,7 @@ sqlalchemy = "*"
 lxml = "*"
 requests = "*"
 beautifulsoup4 = "*"
+yadisk = "*"
 
 [dev-packages]
 

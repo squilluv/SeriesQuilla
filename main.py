@@ -8,7 +8,7 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.snackbar import Snackbar
 
 import models
-from actions import group_saver, del_group_by_id, del_series_by_id, show_groups, show_series_by_id, series_saver
+from actions import group_saver, del_group_by_id, del_series_by_id, show_groups, show_series_by_id, series_saver, upload_data_base, update_db_series
 
 
 class MainWindow(MDBoxLayout):
@@ -173,6 +173,15 @@ class MainApp(MDApp):
         results.add_widget(
             AddSeries()
         )
+
+    def update_db_series(self, x):
+        update_db_series()
+        Snackbar(text="База данных сериалов успешно обновлена").open()
+        print("""____________________________________________
+                 --------------------------------------------
+                 ------------ БД ОБНОВЛЕНА ------------------
+                 --------------------------------------------
+                 ____________________________________________""")
 
 
 if __name__ == "__main__":
