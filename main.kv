@@ -6,7 +6,6 @@
             id: toolbar
             title: "SeriesQuilla"
             left_action_items: [["menu", lambda x: app.callback(x)]]
-            right_action_items: [["arrow-collapse-down", lambda x: app.update_db_series(x)]]
         MDBoxLayout:
             orientation: 'vertical'
 
@@ -75,3 +74,20 @@
         pos_hint: {"center_x": .5, "center_y": .5}
         on_release:
             root.add_series(root.ids.add_series.text)
+
+
+
+<SearchBySeries>:
+    size_hint_y: None
+    orientation: "vertical"
+    MDBoxLayout:
+        MDTextField:
+            id: search_series
+            hint_text: "Введите название сериала"
+        MDRectangleFlatButton:
+            text: "Искать"
+            on_release:
+                root.search_series(root.ids.search_series.text)
+    MDBoxLayout:
+        MDList:
+            id: search_results

@@ -32,10 +32,6 @@ class Groups(Base):
         return session.query(cls).filter(cls.name.ilike(f'%{group_name}%'))
 
     @classmethod
-    def find_by_series_name(cls, series_name):
-        return session.query(cls).join(Series).filter(Series.name.ilike(f'%{series_name}%'))
-
-    @classmethod
     def show_all(cls):
         return session.query(cls).join(Series).all()
 
@@ -107,6 +103,10 @@ class Series(Base):
     @classmethod
     def check_serial(cls, series_name, year):
         return len(session.query(cls).filter_by(name=series_name, year=year).all())
+
+    @classmethod
+    def find_by_series_name(cls, series_name):
+        return session.query(cls).filter(cls.name.ilike(f'%{series_name}%'))
 
 
 class Tokens(Base):

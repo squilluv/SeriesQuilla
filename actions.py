@@ -22,8 +22,8 @@ def series_saver(series_name: str,group_name: str) -> bool:
 
 def show_res_by_search_text(name_table, search_text: str):
     if name_table == "series":
-        return [tuple([group.name, ', '.join([series.name for series in group.series]), group.id]) for group in
-                Groups.find_by_series_name(search_text)]
+        return [tuple([series.name, series.groups.name, series.id]) for series in
+                Series.find_by_series_name(search_text)]
     elif name_table == "groups":
         return [tuple([group.name, ', '.join([series.name for series in group.series]), group.id]) for group in
                 Groups.find_by_group_name(search_text)]

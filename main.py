@@ -8,7 +8,7 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.snackbar import Snackbar
 
 import models
-from actions import group_saver, del_group_by_id, del_series_by_id, show_groups, show_series_by_id, series_saver, upload_data_base, update_db_series
+from actions import *
 
 
 class MainWindow(MDBoxLayout):
@@ -92,6 +92,18 @@ class AddSeries(MDBoxLayout):
                 )
 
 
+class SearchBySeries(MDBoxLayout):
+    def search_series(self, series_name):
+        res = show_res_by_search_text("series", series_name)
+        results = self.parent
+        results.clear_widgets()
+        for series in res:
+            results.add_widget(
+                SeriesItemsForSearch(text=f"{series[0]}", secondary_text=f"{series[1]}", series_id=series[2])
+            )
+
+
+
 class SeriesItems(OneLineAvatarIconListItem):
     def __init__(self, series_id, **kwargs):
         super(SeriesItems, self).__init__(**kwargs)
@@ -101,6 +113,11 @@ class SeriesItems(OneLineAvatarIconListItem):
         if del_series_by_id(self.series_id):
             self.parent.remove_widget(self)
 
+
+class SeriesItemsForSearch(TwoLineAvatarIconListItem):
+    def __init__(self, series_id, **kwargs):
+        super(SeriesItemsForSearch, self).__init__(**kwargs)
+        self.series_id = series_id
 
 
 class RightButton(IRightBody, MDIconButton):
@@ -127,6 +144,12 @@ class MainApp(MDApp):
                 "text": "Добавить сериал",
                 "height": dp(56),
                 "on_release": lambda x=f"Item": self.show_series_add_widget(x),
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": "Найти сериал",
+                "height": dp(56),
+                "on_release": lambda x=f"Item": self.show_search_series_add_widget(x),
             }
         ]
 
@@ -174,15 +197,15 @@ class MainApp(MDApp):
             AddSeries()
         )
 
-    def update_db_series(self, x):
-        update_db_series()
-        Snackbar(text="База данных сериалов успешно обновлена").open()
-        print("""____________________________________________
-                 --------------------------------------------
-                 ------------ БД ОБНОВЛЕНА ------------------
-                 --------------------------------------------
-                 ____________________________________________""")
-
+    def show_search_series_add_widget(self, x):
+        self.menu.dismiss()
+        app = MDApp.get_running_app()
+        app.root.ids.toolbar.left_action_items = [["arrow-left", lambda x: app.show_groups()]]
+        results = self.root.ids.results
+        results.clear_widgets()
+        results.add_widget(
+            SearchBySeries()
+        )
 
 if __name__ == "__main__":
     MainApp().run()
